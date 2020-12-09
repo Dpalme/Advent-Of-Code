@@ -1,4 +1,3 @@
-from collections import Counter
 import re
 # region input_string
 input_string = """6-9 z: qzzzzxzzfzzzz
@@ -1004,20 +1003,19 @@ input_string = """6-9 z: qzzzzxzzfzzzz
 # endregion
 
 
-def first_part():
+def first_part(input_data=input_string):
     valid = 0
-    for line in input_string.split("\n"):
-        res = re.search(r'(\d*?)-(\d*)\s(\D):\s(\D*)', line)
-        low, upp, password = int(res.group(1)), int(
-            res.group(2)), Counter(res.group(4))
-        valid += (low <= password[res.group(3)]
-                  ) and (password[res.group(3)] <= upp)
+    for line in input_data.split("\n"):
+        res = re.search(r'(\d*?)-(\d*)\s(\w):\s(.*)', line)
+        low, upp = int(res.group(1)), int(res.group(2))
+        value = len(re.findall(res.group(3), res.group(4)))
+        valid += (low <= value) and (value <= upp)
     return valid
 
 
-def second_part():
+def second_part(input_data=input_string):
     valid = 0
-    for line in input_string.split("\n"):
+    for line in input_data.split("\n"):
         res = re.search(r'(\d*?)-(\d*)\s(\D):\s(\D*)', line)
         pos1, pos2, letter, password = int(res.group(1)) - 1, int(
             res.group(2)) - 1, res.group(3), res.group(4)
