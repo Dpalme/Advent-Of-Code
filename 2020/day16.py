@@ -17,14 +17,6 @@ def first_part(inp_str):
     return error_rate
 
 
-def delete_invalid_tickets(tickets, available):
-    for ticket in tickets.copy():
-        for data in ticket.split(','):
-            if data not in available:
-                tickets.remove(ticket)
-    return tickets
-
-
 def second_part(inp_str):
     # Initialize variables
     secs, accum = [ln for ln in inp_str.split('\n\n')], 1
@@ -42,7 +34,11 @@ def second_part(inp_str):
         available.extend(c_range)
 
     # delete tickets with unacceptable numbers
-    nrby_tckts = delete_invalid_tickets(secs[2].split('\n')[1:], available)
+    nrby_tckts = secs[2].split('\n')[1:]
+    for ticket in nrby_tckts.copy():
+        for data in ticket.split(','):
+            if data not in available:
+                nrby_tckts.remove(ticket)
 
     # split ticket numbers into their positions
     clss_rng = {i: [] for i in range(len(classes))}
@@ -74,8 +70,7 @@ def second_part(inp_str):
     my_ticket = {clss_rng[i][0]: int(n) for i, n in enumerate(
         secs[1].split('\n')[1].split(','))}
     for name, value in my_ticket.items():
-        if 'departure' in name:
-            accum *= value
+        accum *= value if 'departure' in name else 1
     return accum
 
 
