@@ -2,7 +2,7 @@ from re import search
 
 
 def first_part(inp_str):
-    secs = [line for line in inp_str.split('\n\n')]
+    secs, error_rate = [line for line in inp_str.split('\n\n')], 0
     classes, nrby_tckts = secs[0].split('\n'), secs[2].split('\n')[1:]
     available = []
     for line in classes:
@@ -11,7 +11,6 @@ def first_part(inp_str):
             int(res.group(1)), int(res.group(2)) + 1)])
         available.extend([str(x) for x in range(
             int(res.group(3)), int(res.group(4)) + 1)])
-    error_rate = 0
     for ticket in nrby_tckts:
         for data in ticket.split(','):
             error_rate += int(data) if data not in available else 0
@@ -62,6 +61,7 @@ def second_part(inp_str):
                     break
         clss_rng[t_class] = poss_classes
 
+    # remove duplicates from possible classes
     available = list(classes.keys())
     for clas, posses in sorted(clss_rng.items(), key=lambda x: len(x[1])):
         for poss in posses.copy():
@@ -69,6 +69,8 @@ def second_part(inp_str):
                 available.remove(poss)
             else:
                 clss_rng[clas].remove(poss)
+
+    # get values from own ticket
     my_ticket = {clss_rng[i][0]: int(n) for i, n in enumerate(
         secs[1].split('\n')[1].split(','))}
     for name, value in my_ticket.items():
