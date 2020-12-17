@@ -4,16 +4,15 @@ from re import search
 def first_part(inp_str):
     secs, error_rate = [line for line in inp_str.split('\n\n')], 0
     classes, nrby_tckts = secs[0].split('\n'), secs[2].split('\n')[1:]
-    available = []
+    avb = []
     for line in classes:
-        res = search(r'.*[:]\s(\d*)-(\d*)\sor\s(\d*)-(\d*)', line)
-        available.extend([str(x) for x in range(
-            int(res.group(1)), int(res.group(2)) + 1)])
-        available.extend([str(x) for x in range(
-            int(res.group(3)), int(res.group(4)) + 1)])
+        rs = search(r'.*[:]\s(\d*)-(\d*)\sor\s(\d*)-(\d*)', line)
+        avb.extend(set(range(int(rs.group(1)), int(rs.group(2)) + 1)))
+        avb.extend(set(range(int(rs.group(3)), int(rs.group(4)) + 1)))
     for ticket in nrby_tckts:
         for data in ticket.split(','):
-            error_rate += int(data) if data not in available else 0
+            data = int(data)
+            error_rate += data if data not in avb else 0
     return error_rate
 
 
@@ -26,10 +25,8 @@ def second_part(inp_str):
     classes, available = {}, []
     for line in lns:
         res = search(r'(.*)[:]\s(\d*)-(\d*)\sor\s(\d*)-(\d*)', line)
-        c_range = [str(x)
-                   for x in range(int(res.group(2)), int(res.group(3)) + 1)]
-        c_range.extend([str(x) for x in range(
-            int(res.group(4)), int(res.group(5)) + 1)])
+        c_range = list(range(int(res.group(2)), int(res.group(3)) + 1))
+        c_range.extend(list(range(int(res.group(4)), int(res.group(5)) + 1)))
         classes[res.group(1)] = c_range
         available.extend(c_range)
 
@@ -37,14 +34,14 @@ def second_part(inp_str):
     nrby_tckts = secs[2].split('\n')[1:]
     for ticket in nrby_tckts.copy():
         for data in ticket.split(','):
-            if data not in available:
+            if int(data) not in available:
                 nrby_tckts.remove(ticket)
 
     # split ticket numbers into their positions
     clss_rng = {i: [] for i in range(len(classes))}
     for ticket in nrby_tckts:
         for ind, val in enumerate(ticket.split(',')):
-            clss_rng[ind].append(val)
+            clss_rng[ind].append(int(val))
 
     # create a list of all possible classes for each number group
     for t_class, values in clss_rng.items():
