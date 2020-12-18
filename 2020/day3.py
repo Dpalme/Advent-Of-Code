@@ -326,12 +326,10 @@ input_text = """....##..#........##...#.#..#.##
 
 
 def check_slope(right, down):
-    pos = trees = 0
-    for line_number, linea in enumerate(input_text.split("\n")):
-        if (line_number % down == 0):
-            if linea[pos % 31] == "#":
-                trees += 1
-            pos += right
+    pos, trees = 0, 0
+    for line in range(0, len(lines), down):
+        trees += 1 if lines[line][pos % 31] == "#" else 0
+        pos += right
     return trees
 
 
