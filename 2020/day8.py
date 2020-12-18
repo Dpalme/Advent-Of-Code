@@ -1,44 +1,33 @@
-def first_part(input_data):
-    curr, acum, ran = 0, 0, []
-    lines = [line for line in input_data.split('\n')]
-    while curr < len(lines) and curr not in ran:
-        cmd, var = lines[curr].split()
-        ran.append(curr)
-        if cmd == "jmp":
-            curr += int(var)
-        else:
-            acum += int(var) if cmd == 'acc' else 0
-            curr += 1
-    return acum
-
-
-def evaluar(lines):
-    curr, acum, ran = 0, 0, []
+def evaluar(lines, br=False):
+    curr, acum, ran = 0, 0, set()
     while curr < len(lines):
         if curr in ran:
-            return False
-        cmd, var = lines[curr].split()
-        ran.append(curr)
-        if cmd == "jmp":
-            curr += int(var)
-        else:
-            acum += int(var) if cmd == 'acc' else 0
-            curr += 1
+            if br:
+                break
+            else:
+                return False
+        cmd, val = lines[curr][:3], int(lines[curr][3:])
+        ran.add(curr)
+        curr += val if cmd == "jmp" else 1
+        acum += val * (cmd == 'acc')
     return acum
 
 
-def second_part(input_data):
-    lines, change = [line for line in input_data.split('\n')], {}
-    change = {nbr: line[:3] for nbr, line in enumerate(
-        input_data.split('\n')) if 'jmp' in line or 'nop' in line}
+def first_part(inp_str):
+    return evaluar([ln for ln in inp_str.split('\n')], True)
 
-    for nbr, ins in change.items():
+
+def second_part(inp_str):
+    lines = [ln for ln in inp_str.split('\n')]
+    change = {nbr: ln for nbr, ln in enumerate(inp_str.split('\n'))
+              if ln[:3] in ['jmp', 'nop']}
+
+    for nbr, ln in change.items():
         nlines = lines.copy()
-        nlines[nbr] = ('nop' if ins == 'jmp' else 'jmp') + nlines[nbr][3:]
+        nlines[nbr] = ('nop' if ln[:3] == 'jmp' else 'jmp') + ln[3:]
         res = evaluar(nlines)
         if res:
             return res
-    return 0
 
 
 if __name__ == '__main__':
