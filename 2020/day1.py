@@ -1,3 +1,4 @@
+from itertools import combinations
 # region input_string
 input_string = '''1150
 1579
@@ -208,17 +209,16 @@ test = '''1721
 # endregion
 
 
-def first_part(input_data=input_string):
-    for number1 in input_data:
-        if 2020 - number1 in input_data:
-            return number1 * (2020 - number1)
+def first_part(numbers):
+    for n in numbers:
+        if 2020 - n in numbers:
+            return n * (2020 - n)
 
 
-def second_part(input_data=input_string):
-    for number1 in input_data:
-        for number2 in input_data:
-            if 2020 - number1 - number2 in input_data:
-                return number1 * number2 * (2020 - number1 - number2)
+def second_part(numbers):
+    for n1, n2 in combinations(numbers, 2):
+        if 2020 - n1 - n2 in numbers:
+            return (2020 - n1 - n2) * n1 * n2
 
 
 if __name__ == '__main__':
