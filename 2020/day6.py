@@ -2263,5 +2263,7 @@ def second_part():
 
 
 if __name__ == "__main__":
-    print("First Part: %d" % first_part())
-    print("Second Part: %d" % second_part())
+    with open('2020/inputs/day6.txt', 'r') as inp:
+        inp_str = inp.read()
+        print('First part: %d' % first_part(inp_str))
+        print('Second part: %d' % second_part(inp_str))
