@@ -1,5 +1,4 @@
 from itertools import product
-from functools import lru_cache
 
 dirs = set(product((-1, 0, 1), repeat=2)).difference(set([(0, 0)]))
 
@@ -32,24 +31,15 @@ def cycle(sts, xm, ym, line):
     return copied
 
 
-def setup(inp_str, line):
-    sts = [[st for st in ln] for ln in inp_str.split('\n')]
+def setup(sts, line):
     xm, ym, res = len(sts[0]), len(sts), None
     while res != sts:
         res, sts = sts, cycle(sts, xm, ym, line)
     return sum([sum([val == '#' for val in row]) for row in sts])
 
 
-def first_part(inp_str):
-    return setup(inp_str, False)
-
-
-def second_part(inp_str):
-    return setup(inp_str, True)
-
-
 if __name__ == '__main__':
     with open('2020/inputs/day11.txt', 'r') as inp:
-        input_string = inp.read()
-        print('First part: %d' % first_part(input_string))
-        print('Second part: %d' % second_part(input_string))
+        sts = [[st for st in ln] for ln in inp.read().split('\n')]
+        print('First part: %d' % setup(sts, False))
+        print('Second part: %d' % setup(sts, True))
