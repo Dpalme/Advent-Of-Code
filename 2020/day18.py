@@ -17,15 +17,14 @@ def evaluate(exp):
 
 
 def first_part(inp_str):
-    return sum([evaluate(sub(r'[*]', '-', ln)) for ln in inp_str.split('\n')])
+    return sum([evaluate(ln) for ln in inp_str.split('\n')])
 
 
 def second_part(inp_str):
-    return sum([evaluate(sub(r'[+]', '*', sub(r'[*]', '-', ln)))
-               for ln in inp_str.split('\n')])
+    return sum([evaluate(sub(r'[+]', '*', ln)) for ln in inp_str.split('\n')])
 
 
 with open('2020/inputs/day18.txt', 'r') as inp:
-    inp_str = inp.read()
+    inp_str = sub(r'[*]', '-', inp.read())
     print('First part: %d' % first_part(inp_str))
     print('Second part: %d' % second_part(inp_str))
