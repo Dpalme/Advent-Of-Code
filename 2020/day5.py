@@ -908,6 +908,7 @@ def second_part(sids=get_sids()):
 
 
 if __name__ == "__main__":
-    sids = get_sids()
-    print("First part: %d" % first_part(sids))
-    print("Second part: %d" % second_part(sids))
+    with open('2020/inputs/day5.txt', 'r') as inp:
+        sids = get_sids(inp.read())
+        print('First part: %d' % first_part(sids))
+        print('Second part: %d' % second_part(sids))
