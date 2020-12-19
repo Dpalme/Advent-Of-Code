@@ -6,18 +6,12 @@ rls = {}
 @lru_cache(137)
 def cmp(ind, dpth=0):
     curr = rls[ind]
-    if dpth > 4:
-        return ''
-    if '"' in curr:
-        return curr[1]
-    if '|' in curr:
-        frst, sec = curr.split('|')
-        return '(%s)' % "|".join([''.join([cmp(i) for i in frst.split()]),
-                                  ''.join([cmp(i) if i != ind else ('+'
-                                           if ind == '8'
-                                           else '(%s)' % cmp(ind, dpth+1))
-                                           for i in sec.split()])])
-    return r''.join([cmp(i) for i in curr.split()])
+    return ('' if dpth > 4
+            else (curr[1] if '"' in curr else
+                  (f'''({"|".join([''.join([cmp(i) if i != ind else
+                  f'({cmp(ind, dpth+1)})' for i in prt.split()])
+                  for prt in curr.split('|')])})''' if '|' in curr else
+                  r''.join([cmp(i) for i in curr.split()]))))
 
 
 def first_part(exps):
@@ -33,6 +27,5 @@ with open('2020/inputs/day19.txt', 'r') as inp:
     inp_str = inp.read().split('\n\n')
     rls, exps = {exp[:exp.find(':')]: exp[exp.find(':') + 2:]
                  for exp in inp_str[0].split('\n')}, inp_str[1].split('\n')
-    print('First part: %d' % first_part(exps))
-    cmp.cache_clear()
-    print('Second part: %d' % second_part(exps))
+    print(f'First part: {first_part(exps)}', cmp.cache_clear())
+    print(f'Second part: {second_part(exps)}')
