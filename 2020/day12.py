@@ -1,4 +1,5 @@
 from math import cos, sin, pi
+from sys import stdout
 
 
 class Vector2(object):
@@ -52,8 +53,7 @@ def second_part(input_data):
     return boat.manh
 
 
-if __name__ == '__main__':
-    with open('2020/inputs/day12.txt', 'r') as inp:
-        input_string = inp.read()
-        print('First part: %d' % first_part(input_string))
-        print('Second part: %d' % second_part(input_string))
+with open('2020/inputs/day12.txt', 'r') as inp:
+    inp_str = inp.read()
+    stdout.write(f'Day 12\nFirst part: {first_part(inp_str)}\n')
+    stdout.write(f'Second part: {second_part(inp_str)}\n')

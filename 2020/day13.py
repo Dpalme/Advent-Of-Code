@@ -1,3 +1,6 @@
+from sys import stdout
+
+
 def prod(nlist):
     carry = nlist[0]
     for numb in nlist[1:]:
@@ -28,9 +31,8 @@ def second_part(input_schedule):
     return N - x % N
 
 
-if __name__ == '__main__':
-    with open('2020/inputs/day13.txt', 'r') as inp:
-        inp_str = inp.readlines()
-        time, schedule = int(inp_str[0]), inp_str[1]
-        print('First part: %d' % first_part(time, schedule))
-        print('Second part: %d' % second_part(schedule))
+with open('2020/inputs/day13.txt', 'r') as inp:
+    inp_str = inp.readlines()
+    time, schedule = int(inp_str[0]), inp_str[1]
+    stdout.write(f'Day 13\nFirst part: {first_part(time, schedule)}\n')
+    stdout.write(f'Second part: {second_part(schedule)}\n')

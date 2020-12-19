@@ -1,4 +1,5 @@
 from itertools import combinations
+from sys import stdout
 
 
 def first_part(numbers):
@@ -13,8 +14,7 @@ def second_part(numbers):
             return (2020 - n1 - n2) * n1 * n2
 
 
-if __name__ == '__main__':
-    with open('2020/inputs/day1.txt', 'r') as inp:
-        numbers = set([int(x) for x in inp.readlines()])
-        print('First part: %d' % first_part(numbers))
-        print('Second part: %d' % second_part(numbers))
+with open('2020/inputs/day1.txt', 'r') as inp:
+    numbers = set([int(x) for x in inp.readlines()])
+    stdout.write(f'Day 1\nFirst part: {first_part(numbers)}\n')
+    stdout.write(f'Second part: {second_part(numbers)}\n')

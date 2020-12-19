@@ -1,4 +1,5 @@
 from itertools import product
+from sys import stdout
 
 dirs = set(product((-1, 0, 1), repeat=2)).difference(set([(0, 0)]))
 
@@ -38,8 +39,7 @@ def setup(sts, line):
     return sum([sum([val == '#' for val in row]) for row in sts])
 
 
-if __name__ == '__main__':
-    with open('2020/inputs/day11.txt', 'r') as inp:
-        sts = [[st for st in ln] for ln in inp.read().split('\n')]
-        print('First part: %d' % setup(sts, False))
-        print('Second part: %d' % setup(sts, True))
+with open('2020/inputs/day11.txt', 'r') as inp:
+    sts = [[st for st in ln] for ln in inp.read().split('\n')]
+    stdout.write(f'Day 11\nFirst part: {setup(sts, False)}\n')
+    stdout.write(f'Second part: {setup(sts, True)}\n')

@@ -1,4 +1,5 @@
 import re
+from sys import stdout
 
 
 def first_part(input_data):
@@ -22,8 +23,7 @@ def second_part(input_data):
     return valid
 
 
-if __name__ == "__main__":
-    with open('2020/inputs/day2.txt', 'r') as inp:
-        inp_str = inp.read()
-        print('First part: %d' % first_part(inp_str))
-        print('Second part: %d' % second_part(inp_str))
+with open('2020/inputs/day2.txt', 'r') as inp:
+    inp_str = inp.read()
+    stdout.write(f'Day 2\nFirst part: {first_part(inp_str)}\n')
+    stdout.write(f'Second part: {second_part(inp_str)}\n')

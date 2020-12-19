@@ -1,3 +1,6 @@
+from sys import stdout
+
+
 def first_part(nmbrs, off=25):
     for ind, curr in enumerate(nmbrs[off:]):
         prev = set(nmbrs[ind: ind + off])
@@ -11,8 +14,7 @@ def first_part(nmbrs, off=25):
 def second_part(nmbrs, ind, curr, off=25):
     nmbrs = list(reversed(nmbrs))
     for ind in range(ind):
-        cnt = 1
-        arr = nmbrs[ind:ind + cnt]
+        arr, cnt = nmbrs[ind:ind + 1], 1
         while sum(arr) < curr:
             cnt += 1
             arr = nmbrs[ind:ind + cnt]
@@ -20,9 +22,8 @@ def second_part(nmbrs, ind, curr, off=25):
                 return min(arr) + max(arr)
 
 
-if __name__ == '__main__':
-    with open('2020/inputs/day9.txt', 'r') as inp:
-        nmbrs = [int(numb) for numb in inp.read().split('\n')]
-        ind, curr = first_part(nmbrs)
-        print('First part: %d' % curr)
-        print('Second part: %d' % second_part(nmbrs[:ind], ind, curr))
+with open('2020/inputs/day9.txt', 'r') as inp:
+    nmbrs = [int(numb) for numb in inp.read().split('\n')]
+    ind, curr = first_part(nmbrs)
+    stdout.write(f'Day 9\nFirst part: {curr}\n')
+    stdout.write(f'Second part: {second_part(nmbrs[:ind], ind, curr)}\n')

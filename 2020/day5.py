@@ -1,3 +1,6 @@
+from sys import stdout
+
+
 def get_sids(inp_str):
     inp_str = inp_str.replace('F', '0').replace(
         'B', '1').replace('L', '0').replace('R', '1')
@@ -11,8 +14,7 @@ def second_part(sids):
             return sid
 
 
-if __name__ == "__main__":
-    with open('2020/inputs/day5.txt', 'r') as inp:
-        sids = get_sids(inp.read())
-        print('First part: %d' % max(sids))
-        print('Second part: %d' % second_part(sids))
+with open('2020/inputs/day5.txt', 'r') as inp:
+    sids = get_sids(inp.read())
+    stdout.write(f'Day 5\nFirst part: {max(sids)}\n')
+    stdout.write(f'Second part: {second_part(sids)}\n')

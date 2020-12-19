@@ -1,43 +1,45 @@
-with open('2020/inputs/day4.txt', 'r') as inp:
-    input_string = inp.read()
+from sys import stdout
 
 
-def in_range(min, max, value):
-    return min <= value and max >= value
+def inr(mn, mx, val):
+    return mn <= val and mx >= val
 
 
-def first_part():
-    passport = {}
-    passports = []
-    for line in input_string.split("\n"):
+def first_part(inp_str):
+    pss = {}
+    psss = []
+    for line in inp_str.split("\n"):
         if line != "":
             for propert in [propert.split(':') for propert in line.split()]:
-                passport[propert[0]] = propert[1]
+                pss[propert[0]] = propert[1]
         else:
-            if ("byr" in passport and "iyr" in passport and
-                "eyr" in passport and "hgt" in passport and
-                "hcl" in passport and "ecl" in passport and
-                    "pid" in passport):
-                passports.append(passport)
-            passport = {}
-    return passports
+            if ("byr" in pss and "iyr" in pss and
+                "eyr" in pss and "hgt" in pss and
+                "hcl" in pss and "ecl" in pss and
+                    "pid" in pss):
+                psss.append(pss)
+            pss = {}
+    return psss
 
 
-def second_part(passports=first_part()):
+def second_part(psss):
     valid = 0
-    for passport in passports:
-        valid += (in_range(1920, 2002, int(passport["byr"])) *
-                  in_range(2010, 2020, int(passport["iyr"])) *
-                  in_range(2020, 2030, int(passport["eyr"])) *
-                  (("cm" in passport["hgt"] and in_range(150, 193, int(passport["hgt"][:-2]))) or
-                   ("in" in passport["hgt"] and in_range(59, 76, int(passport["hgt"][:-2])))) *
-                  ("#" in passport["hcl"] and len(passport["hcl"]) == 7) *
-                  passport["ecl"] in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"] and
-                  len(passport["pid"]) == 9)
+    for pss in psss:
+        valid += (inr(1920, 2002, int(pss["byr"])) *
+                  inr(2010, 2020, int(pss["iyr"])) *
+                  inr(2020, 2030, int(pss["eyr"])) *
+                  (("cm" in pss["hgt"] and
+                    inr(150, 193, int(pss["hgt"][:-2]))) or
+                   ("in" in pss["hgt"] and
+                    inr(59, 76, int(pss["hgt"][:-2])))) *
+                  ("#" in pss["hcl"] and len(pss["hcl"]) == 7) *
+                  pss["ecl"] in ["amb", "blu", "brn", "gry",
+                                 "grn", "hzl", "oth"] and
+                  len(pss["pid"]) == 9)
     return valid
 
 
-if __name__ == "__main__":
-    passports = first_part()
-    print("First part %d" % len(passports))
-    print("Second part %d" % second_part(passports))
+with open('2020/inputs/day4.txt', 'r') as inp:
+    psss = first_part(inp.read())
+    stdout.write(f'Day 4\nFirst part: {len(psss)}\n')
+    stdout.write(f'Second part: {second_part(psss)}\n')

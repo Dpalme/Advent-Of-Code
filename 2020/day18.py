@@ -1,4 +1,5 @@
 from re import sub
+from sys import stdout
 
 
 class int2(int):
@@ -26,5 +27,5 @@ def second_part(inp_str):
 
 with open('2020/inputs/day18.txt', 'r') as inp:
     inp_str = sub(r'[*]', '-', inp.read())
-    print('First part: %d' % first_part(inp_str))
-    print('Second part: %d' % second_part(inp_str))
+    stdout.write(f'Day 18\nFirst part: {first_part(inp_str)}\n')
+    stdout.write(f'Second part: {second_part(inp_str)}\n')

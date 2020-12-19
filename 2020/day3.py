@@ -1,3 +1,4 @@
+from sys import stdout
 with open('2020/inputs/day3.txt', 'r') as inp:
     lines = inp.readlines()
 
@@ -19,6 +20,5 @@ def second_part():
             check_slope(5, 1) * check_slope(7, 1) * check_slope(1, 2))
 
 
-if __name__ == "__main__":
-    print('First part: %d' % first_part())
-    print('Second part: %d' % second_part())
+stdout.write(f'Day 3\nFirst part: {first_part()}\n')
+stdout.write(f'Second part: {second_part()}\n')

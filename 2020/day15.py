@@ -1,3 +1,6 @@
+from sys import stdout
+
+
 def first_part(input_data):
     spoke = {int(numb): time + 1 for time,
              numb in enumerate(input_data.split(','))}
@@ -16,8 +19,7 @@ def second_part(input_data):
     return numb
 
 
-if __name__ == '__main__':
-    with open('2020/inputs/day15.txt', 'r') as inp:
-        inp_str = inp.read()
-        print('First part: %d' % first_part(inp_str))
-        print('Second part: %d' % second_part(inp_str))
+with open('2020/inputs/day15.txt', 'r') as inp:
+    inp_str = inp.read()
+    stdout.write(f'Day 15\nFirst part: {first_part(inp_str)}\n')
+    stdout.write(f'Second part: {second_part(inp_str)}\n')

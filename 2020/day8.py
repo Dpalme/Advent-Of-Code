@@ -1,3 +1,6 @@
+from sys import stdout
+
+
 def evaluar(lines, br=False):
     curr, acum, ran = 0, 0, set()
     while curr < len(lines):
@@ -30,8 +33,7 @@ def second_part(inp_str):
             return res
 
 
-if __name__ == '__main__':
-    with open('2020/inputs/day8.txt', 'r') as inp:
-        input_string = inp.read()
-        print('First part: %d' % first_part(input_string))
-        print('Second part: %d' % second_part(input_string))
+with open('2020/inputs/day8.txt', 'r') as inp:
+    inp_str = inp.read()
+    stdout.write(f'Day 8\nFirst part: {first_part(inp_str)}\n')
+    stdout.write(f'Second part: {second_part(inp_str)}\n')

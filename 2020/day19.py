@@ -1,5 +1,6 @@
 from re import match
 from functools import lru_cache
+from sys import stdout
 rls = {}
 
 
@@ -28,6 +29,6 @@ with open('2020/inputs/day19.txt', 'r') as inp:
     inp_str = inp.read().split('\n\n')
     rls, exps = {exp[:exp.find(':')]: exp[exp.find(':') + 2:]
                  for exp in inp_str[0].split('\n')}, inp_str[1].split('\n')
-    print(f'First part: {first_part(exps)}')
+    stdout.write(f'Day 19\nFirst part: {first_part(exps)}\n')
     cmp.cache_clear()
-    print(f'Second part: {second_part(exps)}')
+    stdout.write(f'Second part: {second_part(exps)}\n')
