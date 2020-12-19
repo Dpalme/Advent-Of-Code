@@ -3,7 +3,7 @@ from functools import lru_cache
 rls = {}
 
 
-@lru_cache(133)
+@lru_cache(137)
 def cmp(ind, dpth=0):
     curr = rls[ind]
     if dpth > 4:
