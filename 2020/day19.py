@@ -14,9 +14,9 @@ def cmp(ind, dpth=0):
         frst, sec = curr.split('|')
         return '(%s)' % "|".join([''.join([cmp(i) for i in frst.split()]),
                                   ''.join([cmp(i) if i != ind else ('+'
-                                          if ind == 8
-                                          else '(%s)' % cmp(ind, dpth+1))
-                                          for i in sec.split()])])
+                                           if ind == '8'
+                                           else '(%s)' % cmp(ind, dpth+1))
+                                           for i in sec.split()])])
     return r''.join([cmp(i) for i in curr.split()])
 
 
