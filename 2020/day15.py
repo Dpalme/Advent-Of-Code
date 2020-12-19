@@ -2,10 +2,12 @@ from sys import stdout
 
 
 def play(inp_str, stop):
-    spoke = {int(numb): time + 1 for time, numb in enumerate(inp_str.split(','))}
-    numb = list(spoke.keys())[-1]
-    for i in range(len(spoke), stop):
-        spoke[numb], numb = (i, i - spoke[numb]) if numb in spoke else (i, 0)
+    strt = [int(x) for x in inp_str.split(',')]
+    spoke, numb = [0] * stop, strt[-1]
+    for time, numb in enumerate(strt):
+        spoke[numb] = time + 1
+    for i in range(len(strt), stop):
+        spoke[numb], numb = i, i - spoke[numb] if spoke[numb] != 0 else 0
     return numb
 
 
