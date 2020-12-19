@@ -27,5 +27,6 @@ with open('2020/inputs/day19.txt', 'r') as inp:
     inp_str = inp.read().split('\n\n')
     rls, exps = {exp[:exp.find(':')]: exp[exp.find(':') + 2:]
                  for exp in inp_str[0].split('\n')}, inp_str[1].split('\n')
-    print(f'First part: {first_part(exps)}', cmp.cache_clear())
+    print(f'First part: {first_part(exps)}')
+    cmp.cache_clear()
     print(f'Second part: {second_part(exps)}')
