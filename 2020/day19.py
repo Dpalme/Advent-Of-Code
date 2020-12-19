@@ -6,12 +6,13 @@ rls = {}
 @lru_cache(137)
 def cmp(ind, dpth=0):
     curr = rls[ind]
-    return ('' if dpth > 4
-            else (curr[1] if '"' in curr else
-                  (f'''({"|".join([''.join([cmp(i) if i != ind else
-                  f'({cmp(ind, dpth+1)})' for i in prt.split()])
-                  for prt in curr.split('|')])})''' if '|' in curr else
-                  r''.join([cmp(i) for i in curr.split()]))))
+    return ('' if dpth > 4 else (
+            curr[1] if '"' in curr else
+            (f'''({"|".join([''.join([cmp(i) if i != ind
+                                      else f'({cmp(ind, dpth+1)})'  
+                                      for i in prt.split()])
+                             for prt in curr.split('|')])})''' if '|' in curr
+             else r''.join([cmp(i) for i in curr.split()]))))
 
 
 def first_part(exps):
