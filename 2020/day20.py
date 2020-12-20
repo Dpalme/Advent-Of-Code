@@ -1,6 +1,5 @@
 from sys import stdout
 from math import sqrt
-from itertools import product
 
 
 class Map(object):
