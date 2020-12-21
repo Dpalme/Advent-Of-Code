@@ -62,7 +62,7 @@ def first_part(tmap):
 
 def second_part(tmap):
     # regex over input (#\.\.\.\.##) returned 44
-    # though maybe half of those were monsters
+    # thought maybe half of those were monsters
     # tried different inputs
     # 1587(22) < 1677(16) < x < 1722(13) < 1767(10)
     # answer 15
