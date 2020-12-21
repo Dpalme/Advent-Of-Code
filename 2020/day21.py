@@ -5,12 +5,11 @@ from collections import defaultdict
 def parse_input(inp_str):
     all_ingr, pos_alrs, alrs = [], set(), defaultdict(set)
     for food in inp_str:
-        ingr, alrg = food[:-1].split('(')
-        ingr = ingr.split()
-        all_ingr.extend(ingr)
-        for alr in alrg.replace(',', '').split()[1:]:
-            alrs[alr] = (set(ingr) if alrs[alr] == set() else
-                         set.intersection(alrs[alr], set(ingr)))
+        args = [x.split() for x in food[:-1].replace(',', '').split('(')]
+        all_ingr.extend(args[0])
+        for i in args[1][1:]:
+            alrs[i] = (set(args[0]) if alrs[i] == set() else
+                       alrs[i].intersection(set(args[0])))
     [pos_alrs.update(pos) for name, pos in alrs.items()]
     return {i: sorted(x) for i, x in alrs.items()}, all_ingr, pos_alrs
 
@@ -29,7 +28,7 @@ def second_part(alrs, pos_alrs):
                 chosen = True
             else:
                 alrs[ind][1].remove(poss)
-    return ",".join([n.pop() for i, n in sorted(alrs)])
+    return ",".join([n[0] for i, n in sorted(alrs)])
 
 
 with open('2020/inputs/day21.txt', 'r') as inp:
