@@ -1,21 +1,18 @@
 from sys import stdout
-from re import search
 from collections import defaultdict
 
 
 def parse_input(inp_str):
     all_ingr, pos_alrs, alrs = [], set(), defaultdict(set)
     for food in inp_str:
-        res = search(r'(.*)\s\(contains\s(.*)\)', food)
-        ingr = res.group(1).split()
+        ingr, alrg = food[:-1].split('(')
+        ingr = ingr.split()
         all_ingr.extend(ingr)
-        for alr in res.group(2).replace(',', '').split():
-            if alrs[alr] == set():
-                alrs[alr] = set(ingr)
-            else:
-                alrs[alr].intersection_update(set(ingr))
+        for alr in alrg.replace(',', '').split()[1:]:
+            alrs[alr] = (set(ingr) if alrs[alr] == set() else
+                         set.intersection(alrs[alr], set(ingr)))
     [pos_alrs.update(pos) for name, pos in alrs.items()]
-    return alrs, all_ingr, pos_alrs
+    return {i: sorted(x) for i, x in alrs.items()}, all_ingr, pos_alrs
 
 
 def first_part(all_ingr, pos_alrs):
@@ -28,11 +25,11 @@ def second_part(alrs, pos_alrs):
         chosen = False
         for poss in posses.copy():
             if poss in pos_alrs and not chosen:
-                pos_alrs.discard(poss)
+                pos_alrs.remove(poss)
                 chosen = True
             else:
-                alrs[ind][1].discard(poss)
-    return ",".join([n.pop() for i, n in sorted(alrs, key=lambda x: x[0])])
+                alrs[ind][1].remove(poss)
+    return ",".join([n.pop() for i, n in sorted(alrs)])
 
 
 with open('2020/inputs/day21.txt', 'r') as inp:
