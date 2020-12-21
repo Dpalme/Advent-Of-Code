@@ -3,15 +3,15 @@ from collections import defaultdict
 
 
 def parse_input(inp_str):
-    all_ingr, pos_alrs, alrs = [], set(), defaultdict(set)
+    all_ingr, alrs = [], defaultdict(set)
     for food in inp_str:
         args = [x.split() for x in food[:-1].replace(',', '').split('(')]
         all_ingr.extend(args[0])
         for i in args[1][1:]:
             alrs[i] = (set(args[0]) if alrs[i] == set() else
                        alrs[i].intersection(set(args[0])))
-    [pos_alrs.update(pos) for name, pos in alrs.items()]
-    return {i: sorted(x) for i, x in alrs.items()}, all_ingr, pos_alrs
+    return ({i: sorted(x) for i, x in alrs.items()}, all_ingr,
+            set.union(*[pos for n, pos in alrs.items()]))
 
 
 def first_part(all_ingr, pos_alrs):
