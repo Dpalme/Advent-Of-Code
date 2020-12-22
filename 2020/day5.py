@@ -9,9 +9,9 @@ def get_sids(inp_str):
 
 
 def second_part(sids):
-    for sid in range(len(sids)):
-        if sid not in sids and sid-1 in sids and sid+1 in sids:
-            return sid
+    for sid in sids:
+        if sid + 1 not in sids and sid + 2 in sids:
+            return sid + 1
 
 
 with open('2020/inputs/day5.txt', 'r') as inp:
