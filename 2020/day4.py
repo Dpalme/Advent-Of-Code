@@ -3,7 +3,7 @@ from sys import stdout
 
 def inr(mn, mx, val):
     val = int(val)
-    return mn <= val and mx >= val
+    return mn <= val <= mx
 
 
 def first_part(inp_str):
