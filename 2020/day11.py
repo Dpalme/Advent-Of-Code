@@ -7,7 +7,7 @@ DIRS = set(product((-1, 0, 1), repeat=2)).difference(set([(0, 0)]))
 def setup(sts, line):
     xm, ym, res = len(sts[0]), len(sts), None
 
-    def crowd(x, y, sts, brkr):
+    def crowd(x, y, brkr):
         crowded = 0
         for i, j in DIRS:
             dx, dy = x + i, y + j
@@ -20,12 +20,12 @@ def setup(sts, line):
                 dx, dy = dx + i, dy + j
         return crowded
 
-    def cycle(sts):
+    def cycle():
         copied, counter = [[val for val in row] for row in sts], 0
         for y in range(ym):
             for x, seat in enumerate(sts[y]):
                 if seat != '.':
-                    crowded = crowd(x, y, sts, seat == 'L')
+                    crowded = crowd(x, y, seat == 'L')
                     if seat == 'L' and crowded == 0:
                         copied[y][x] = '#'
                     elif seat == '#' and crowded > 3 + line:
@@ -34,7 +34,7 @@ def setup(sts, line):
         return copied, counter
 
     while res != sts:
-        res, (sts, counter) = sts, cycle(sts)
+        res, (sts, counter) = sts, cycle()
     return counter
 
 
