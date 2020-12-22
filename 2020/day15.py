@@ -1,8 +1,7 @@
 from sys import stdout
 
 
-def play(inp_str, stop):
-    strt = tuple(int(x) for x in inp_str.split(','))
+def play(strt, stop):
     spoke, numb = [0] * stop, strt[-1]
     for time, numb in enumerate(strt):
         spoke[numb] = time + 1
@@ -12,6 +11,6 @@ def play(inp_str, stop):
 
 
 with open('2020/inputs/day15.txt', 'r') as inp:
-    inp_str = inp.read()
-    stdout.write(f'Day 15\nFirst part: {play(inp_str, 2020)}\n')
-    stdout.write(f'Second part: {play(inp_str, 30000000)}\n')
+    strt = tuple(int(x) for x in inp.read().split(','))
+    stdout.write(f'Day 15\nFirst part: {play(strt, 2020)}\n')
+    stdout.write(f'Second part: {play(srtr, 30000000)}\n')
