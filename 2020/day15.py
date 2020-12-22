@@ -2,7 +2,7 @@ from sys import stdout
 
 
 def play(inp_str, stop):
-    strt = [int(x) for x in inp_str.split(',')]
+    strt = tuple(int(x) for x in inp_str.split(','))
     spoke, numb = [0] * stop, strt[-1]
     for time, numb in enumerate(strt):
         spoke[numb] = time + 1
