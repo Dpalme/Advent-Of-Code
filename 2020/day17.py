@@ -7,7 +7,7 @@ def conway_cubes(lns, dims=3, cycs=6):
     dirs, cubes = set(product((-1, 0, 1), repeat=dims)), {}
     dirs.remove(((0,)*dims))
     for y, row in enumerate(lns):
-        for x, cube in enumerate(row[:-1]):
+        for x, cube in enumerate(row):
             cubes[(x, y) + ((0,)*(dims-2))] = cube
 
     def cycle_cubes(c_cubes):
@@ -39,6 +39,6 @@ def conway_cubes(lns, dims=3, cycs=6):
 
 
 with open('2020/inputs/day17.txt', 'r') as inp:
-    inp_str = inp.readlines()
+    inp_str = inp.read().split('\n')
     stdout.write(f'Day 17\nFirst part: {conway_cubes(inp_str)}\n')
     stdout.write(f'Second part: {conway_cubes(inp_str, 4)}\n')
