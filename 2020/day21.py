@@ -32,6 +32,6 @@ def second_part(alrs, pos_alrs):
 
 
 with open('2020/inputs/day21.txt', 'r') as inp:
-    alrs, all_ingr, pos_alrs = parse_input(inp.readlines())
+    alrs, all_ingr, pos_alrs = parse_input(inp.read().split('\n'))
     stdout.write(f'Day 21\nFirst part: {first_part(all_ingr, pos_alrs)}\n')
     stdout.write(f'Second part: {second_part(alrs, pos_alrs)}\n')
