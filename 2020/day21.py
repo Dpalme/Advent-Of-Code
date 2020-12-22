@@ -5,7 +5,7 @@ from collections import defaultdict
 def parse_input(inp_str):
     all_ingr, alrs = [], defaultdict(set)
     for food in inp_str:
-        args = [x.split() for x in food[:-1].replace(',', '').split('(')]
+        args = tuple(x.split() for x in food[:-1].replace(',', '').split('('))
         all_ingr.extend(args[0])
         for i in args[1][1:]:
             alrs[i] = (set(args[0]) if alrs[i] == set() else
