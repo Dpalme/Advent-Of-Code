@@ -14,7 +14,7 @@ def invm(a, b):
 
 
 def first_part(input_time, input_schedule):
-    busses = [int(x) for x in input_schedule.split(',') if x != "x"]
+    busses = tuple(int(x) for x in input_schedule.split(',') if x != "x")
     min_bus, timm = 0, 1000950
     for bus in busses:
         if ((input_time // bus) + 1) * bus < timm:
@@ -22,12 +22,12 @@ def first_part(input_time, input_schedule):
     return min_bus * (timm - input_time)
 
 
-def second_part(input_schedule):
+def second_part(schedule):
     # https://github.com/MartinSeeler/Advent-of-Code-2020/blob/master/day13/day13_2.py
-    busses = [(int(x), idx)
-              for idx, x in enumerate(input_schedule.split(",")) if x != "x"]
+    busses = tuple((int(x), idx)
+                   for idx, x in enumerate(schedule.split(",")) if x != "x")
     N = prod([bs[0] for bs in busses])
-    x = sum([bs[1] * (N//bs[0]) * invm(N//bs[0], bs[0]) for bs in busses])
+    x = sum(bs[1] * (N//bs[0]) * invm(N//bs[0], bs[0]) for bs in busses)
     return N - x % N
 
 
