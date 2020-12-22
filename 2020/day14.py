@@ -2,8 +2,8 @@ from collections import Counter
 from sys import stdout
 
 
-def first_part(input_data):
-    lines, mem, mask = input_data.split('\n'), {}, None
+def first_part(lines):
+    mem, mask = {}, None
     for line in lines:
         res = line.split()
         if 'mem' in line:
@@ -27,8 +27,8 @@ def iterations(res):
     return tuple(int("".join(entry), base=2) for entry in res)
 
 
-def second_part(input_data):
-    mem, mask, lines = {}, None, input_data.split('\n')
+def second_part(lines):
+    mem, mask = {}, None
     for line in lines:
         res = line.split()
         if 'mem' in line:
@@ -43,6 +43,6 @@ def second_part(input_data):
 
 
 with open('2020/inputs/day14.txt', 'r') as inp:
-    inp_str = inp.read()
+    inp_str = inp.readlines()
     stdout.write(f'Day 14\nFirst part: {first_part(inp_str)}\n')
     stdout.write(f'Second part: {second_part(inp_str)}\n')
