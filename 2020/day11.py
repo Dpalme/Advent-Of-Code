@@ -16,8 +16,8 @@ def crowd(x, y, xm, ym, sts, line):
                 dx, dy = dx + i, dy + j
         return crowded
     else:
-        return sum([sts[y+j][x+i] == '#' for i, j in dirs
-                    if 0 <= x+i and x+i < xm and 0 <= y+j and y+j < ym])
+        return sum(sts[y+j][x+i] == '#' for i, j in dirs
+                   if 0 <= x+i and x+i < xm and 0 <= y+j and y+j < ym)
 
 
 def cycle(sts, xm, ym, line):
@@ -36,7 +36,7 @@ def setup(sts, line):
     xm, ym, res = len(sts[0]), len(sts), None
     while res != sts:
         res, sts = sts, cycle(sts, xm, ym, line)
-    return sum([sum([val == '#' for val in row]) for row in sts])
+    return sum(sum(val == '#' for val in row) for row in sts)
 
 
 with open('2020/inputs/day11.txt', 'r') as inp:
