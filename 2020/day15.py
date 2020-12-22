@@ -13,4 +13,4 @@ def play(strt, stop):
 with open('2020/inputs/day15.txt', 'r') as inp:
     strt = tuple(int(x) for x in inp.read().split(','))
     stdout.write(f'Day 15\nFirst part: {play(strt, 2020)}\n')
-    stdout.write(f'Second part: {play(srtr, 30000000)}\n')
+    stdout.write(f'Second part: {play(strt, 30000000)}\n')
