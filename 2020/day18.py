@@ -18,11 +18,11 @@ def evaluate(exp):
 
 
 def first_part(inp_str):
-    return sum([evaluate(ln) for ln in inp_str.split('\n')])
+    return sum(evaluate(ln) for ln in inp_str.split('\n'))
 
 
 def second_part(inp_str):
-    return sum([evaluate(sub(r'[+]', '*', ln)) for ln in inp_str.split('\n')])
+    return sum(evaluate(sub(r'[+]', '*', ln)) for ln in inp_str.split('\n'))
 
 
 with open('2020/inputs/day18.txt', 'r') as inp:
