@@ -1,45 +1,45 @@
 from itertools import product
 from sys import stdout
 
-dirs = set(product((-1, 0, 1), repeat=2)).difference(set([(0, 0)]))
-
-
-def crowd(x, y, xm, ym, sts, line):
-    if line:
-        crowded = 0
-        for i, j in dirs:
-            dx, dy = x + i, y + j
-            while 0 <= dx and dx < xm and 0 <= dy and dy < ym:
-                if sts[dy][dx] != '.':
-                    crowded += 1 if sts[dy][dx] == '#' else 0
-                    break
-                dx, dy = dx + i, dy + j
-        return crowded
-    else:
-        return sum(sts[y+j][x+i] == '#' for i, j in dirs
-                   if 0 <= x+i and x+i < xm and 0 <= y+j and y+j < ym)
-
-
-def cycle(sts, xm, ym, line):
-    copied = [[val for val in row] for row in sts]
-    for y in range(ym):
-        for x, seat in enumerate(sts[y]):
-            crowded = crowd(x, y, xm, ym, sts, line)
-            if seat == 'L' and crowded == 0:
-                copied[y][x] = '#'
-            elif seat == '#' and crowded > 3 + line:
-                copied[y][x] = 'L'
-    return copied
+DIRS = set(product((-1, 0, 1), repeat=2)).difference(set([(0, 0)]))
 
 
 def setup(sts, line):
     xm, ym, res = len(sts[0]), len(sts), None
+
+    def crowd(x, y, sts, brkr):
+        crowded = 0
+        for i, j in DIRS:
+            dx, dy = x + i, y + j
+            while 0 <= dx < xm and 0 <= dy < ym:
+                if sts[dy][dx] != '.' or not line:
+                    crowded += sts[dy][dx] == '#'
+                    if brkr and crowded >= 1:
+                        return crowded
+                    break
+                dx, dy = dx + i, dy + j
+        return crowded
+
+    def cycle(sts):
+        copied, counter = [[val for val in row] for row in sts], 0
+        for y in range(ym):
+            for x, seat in enumerate(sts[y]):
+                if seat != '.':
+                    crowded = crowd(x, y, sts, seat == 'L')
+                    if seat == 'L' and crowded == 0:
+                        copied[y][x] = '#'
+                    elif seat == '#' and crowded > 3 + line:
+                        copied[y][x] = 'L'
+                    counter += copied[y][x] == '#'
+        return copied, counter
+
     while res != sts:
-        res, sts = sts, cycle(sts, xm, ym, line)
-    return sum(sum(val == '#' for val in row) for row in sts)
+        res, (sts, counter) = sts, cycle(sts)
+    return counter
 
 
 with open('2020/inputs/day11.txt', 'r') as inp:
     sts = [[st for st in ln] for ln in inp.read().split('\n')]
-    stdout.write(f'Day 11\nFirst part: {setup(sts, False)}\n')
-    stdout.write(f'Second part: {setup(sts, True)}\n')
+    stdout.write('Day 11\nFirst part: ')
+    stdout.write(f'{setup(sts, False)}\nSecond part: ')
+    stdout.write(f'{setup(sts, True)}\n')
