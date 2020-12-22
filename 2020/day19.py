@@ -17,12 +17,12 @@ def cmp(ind, dpth=0):
 
 
 def first_part(exps):
-    return sum([match('^'+cmp('0')+'$', exp) is not None for exp in exps])
+    return sum(match('^'+cmp('0')+'$', exp) is not None for exp in exps)
 
 
 def second_part(exps):
     rls['8'], rls['11'] = '42 | 42 8', '42 31 | 42 11 31'
-    return sum([match('^'+cmp('0')+'$', exp) is not None for exp in exps])
+    return sum(match('^'+cmp('0')+'$', exp) is not None for exp in exps)
 
 
 with open('2020/inputs/day19.txt', 'r') as inp:
