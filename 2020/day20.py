@@ -4,9 +4,8 @@ from math import sqrt
 
 class Map(object):
     def __init__(self, inp_str):
-        self.tiles = [Tile(int(ln[5:9]), ln.split('\n')[1:]) for ln in inp_str]
+        self.tiles = tuple(Tile(int(ln[5:9]), ln.split('\n')[1:]) for ln in inp_str)
         self.wdth = int(sqrt(len(self.tiles)))
-        self.grid = [[[] for i in range(self.wdth)] for n in range(self.wdth)]
         self.pair()
 
     def pair(self):
@@ -20,19 +19,19 @@ class Map(object):
 
     @property
     def edges(self):
-        return [t.tid for t in self.tiles if t.connections == 2]
+        return tuple(t.tid for t in self.tiles if t.connections == 2)
 
     @property
     def turb(self):
-        return sum([t.turb for t in self.tiles])
+        return sum(t.turb for t in self.tiles)
 
 
 class Tile(object):
     def __init__(self, tid, lines):
         self.tid, self.lines = tid, lines
-        self.brdrs = [lines[0], lines[-1], ''.join([i[0] for i in lines]),
-                      ''.join([i[-1] for i in lines])]
-        self.flpd = [i[::-1] for i in self.brdrs]
+        self.brdrs = (lines[0], lines[-1], ''.join([i[0] for i in lines]),
+                      ''.join([i[-1] for i in lines]))
+        self.flpd = tuple(i[::-1] for i in self.brdrs)
         self.pairs = []
 
     def pair(self, other):
@@ -42,7 +41,7 @@ class Tile(object):
                     self.pairs.append(other.tid)
 
     def trim(self):
-        self.lines = [ln[1:-1] for ln in self.lines[1:-1]]
+        self.lines = tuple(ln[1:-1] for ln in self.lines[1:-1])
 
     @property
     def connections(self):
@@ -50,7 +49,7 @@ class Tile(object):
 
     @property
     def turb(self):
-        return sum([len([n for n in i if n == '#']) for i in self.lines])
+        return sum(len(tuple(n for n in i if n == '#')) for i in self.lines)
 
 
 def first_part(tmap):
