@@ -11,7 +11,7 @@ def evaluar(lines, br=False):
                 return False
         cmd, val = lines[curr][:3], int(lines[curr][3:])
         ran.add(curr)
-        curr += val if cmd == "jmp" else 1
+        curr += val * (cmd == 'jmp') + 1 * (cmd != 'jmp')
         acum += val * (cmd == 'acc')
     return acum
 
@@ -22,13 +22,13 @@ def first_part(inp_str):
 
 def second_part(inp_str):
     lines = [ln for ln in inp_str.split('\n')]
-    change = {nbr: ln for nbr, ln in enumerate(inp_str.split('\n'))
-              if ln[:3] in ['jmp', 'nop']}
+    change = {(nbr, ln) for nbr, ln in enumerate(lines)
+              if ln[:3] in ('jmp', 'nop')}
 
-    for nbr, ln in change.items():
-        nlines = lines.copy()
-        nlines[nbr] = ('nop' if ln[:3] == 'jmp' else 'jmp') + ln[3:]
-        res = evaluar(nlines)
+    for nbr, ln in change:
+        nlns = lines.copy()
+        nlns[nbr] = ''.join(('nop' if ln[:3] == 'jmp' else 'jmp', ln[3:]))
+        res = evaluar(nlns)
         if res:
             return res
 
