@@ -36,6 +36,6 @@ def second_part(decks):
 
 with open('2020/inputs/day22.txt', 'r') as inp:
     decks = tuple([int(x) for x in i.split('\n')[1:]]
-                 for i in inp.read().split('\n\n'))
+                  for i in inp.read().split('\n\n'))
     stdout.write(f'Day 22\nFirst part: {first_part(deepcopy(decks))}\n')
     stdout.write(f'Second part: {second_part(decks)}\n')

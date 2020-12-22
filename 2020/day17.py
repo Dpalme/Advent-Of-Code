@@ -3,8 +3,7 @@ from copy import deepcopy
 from sys import stdout
 
 
-def first_part(inp_data, cycs=6):
-    lns = inp_data.split('\n')
+def first_part(lns, cycs=6):
     size, zm = cycs*2+len(lns), 2*cycs + 1
     spr = range(size)
     xy = set(product(spr, repeat=2))
@@ -34,8 +33,7 @@ def first_part(inp_data, cycs=6):
                                                    for row in cubes[cycs])
 
 
-def second_part(inp_data, cycs=6):
-    lns = inp_data.split('\n')
+def second_part(lns, cycs=6):
     size, zm = cycs*2+len(lns), 2*cycs+1
     spr, zmr = range(size), range(zm)
     empty = [[[[0 for x in spr] for y in spr]
@@ -66,6 +64,6 @@ def second_part(inp_data, cycs=6):
 
 
 with open('2020/inputs/day17.txt', 'r') as inp:
-    inp_str = inp.read()
+    inp_str = inp.readlines()
     stdout.write(f'Day 17\nFirst part: {first_part(inp_str)}\n')
     stdout.write(f'Second part: {second_part(inp_str)}\n')
