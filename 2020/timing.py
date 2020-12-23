@@ -24,4 +24,5 @@ import day19
 import day20
 import day21
 import day22
-stdout.write(f'{time()-strt}\n')
+import day23
+stdout.write(f'\n{time()-strt}\n')
