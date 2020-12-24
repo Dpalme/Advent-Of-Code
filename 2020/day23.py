@@ -2,18 +2,17 @@ from sys import stdout as std
 
 
 def play(start, cups, rounds):
-    highest, pivot = len(cups), start
+    highest, piv = len(cups), start
     for i in range(rounds):
-        t1 = cups[pivot]
+        t1 = cups[piv]
         t2 = cups[t1]
         t3 = cups[t2]
-        three, cups[pivot] = (t1, t2, t3), cups[t3]
-        nxt = pivot - 1
-        while nxt in three or nxt < 1:
-            nxt -= 1
-            if nxt < 1:
-                nxt = highest
-        cups[nxt], cups[t3], pivot = t1, cups[nxt], cups[pivot]
+        nx, cups[piv] = piv - 1, cups[t3]
+        while nx == t1 or nx == t2 or nx == t3 or nx < 1:
+            nx -= 1
+            if nx < 1:
+                nx = highest
+        cups[nx], cups[t3], piv = t1, cups[nx], cups[piv]
     return cups
 
 
@@ -42,4 +41,4 @@ with open('2020/inputs/day23.txt', 'r') as inp:
     strt, end = inp_str[0], inp_str[-1]
     std.write('Day 23\nFirst part: ')
     std.write(f'{first_part(cups.copy(), strt, end)}\nSecond part: ')
-    std.write(f'{second_part(cups, strt, end)}')
+    std.write(f'{second_part(cups, strt, end)}\n')
