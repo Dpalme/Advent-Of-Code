@@ -3,7 +3,7 @@ from re import sub
 from collections import defaultdict
 dirs = {'w': (-1, 0), 'e': (1, 0), 'u': (0.5, -0.5),
         'b': (-0.5, -0.5), 'v': (0.5, 0.5), 'p': (-0.5, 0.5)}
-dir_tup = tuple(dirs.values())
+dir_tup = ((-1, 0), (1, 0), (0.5, -0.5), (-0.5, -0.5), (0.5, 0.5), (-0.5, 0.5))
 
 
 def first_part(inp_str):
