@@ -11,7 +11,8 @@ def first_part(inp_str):
     for line in inp_str:
         pos = (0, 0)
         for d in line:
-            pos = tuple(map(sum, zip(pos, dirs[d])))
+            x, y = dirs[d]
+            pos = (pos[0] + x, pos[1] + y)
         if pos in tiles:
             tiles.remove(pos)
         else:
@@ -20,11 +21,15 @@ def first_part(inp_str):
 
 
 def second_part(tiles):
+    def neighbors(crd):
+        for dx, dy in dir_tup:
+            yield crd[0] + dx, crd[1] + dy
+
     def switch(tiles):
         nei_tiles, n_tiles = defaultdict(int), set()
         for tile in tiles:
-            for nei in dir_tup:
-                nei_tiles[tuple(map(sum, zip(tile, nei)))] += 1
+            for nei in neighbors(tile):
+                nei_tiles[nei] += 1
         for coord, neis in nei_tiles.items():
             if neis == 2:
                 n_tiles.add(coord)
