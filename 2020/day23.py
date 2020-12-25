@@ -1,9 +1,9 @@
 from sys import stdout as std
 
 
-def play(start, cups, rounds):
-    highest, piv = len(cups), start
-    for i in range(rounds):
+def play(cups, piv, rounds):
+    highest = len(cups)
+    for _ in range(rounds):
         t1 = cups[piv]
         t2 = cups[t1]
         t3 = cups[t2]
@@ -18,7 +18,7 @@ def play(start, cups, rounds):
 
 def first_part(cups, strt, end):
     cups[end] = strt
-    cups = play(strt, cups, 100)
+    cups = play(cups, strt, 100)
     curr, data = 1, []
     for _ in range(1, len(cups)):
         data.append(str(cups[curr]))
@@ -26,11 +26,11 @@ def first_part(cups, strt, end):
     return ''.join(data)
 
 
-def second_part(cups, start, end):
+def second_part(cups, strt, end):
     nxt = len(inp_str) + 1
     cups[end], cups[1000000] = nxt, strt
     cups.update({i: i+1 for i in range(nxt, 1000000)})
-    cups = play(strt, cups, 10000000)
+    cups = play(cups, strt, 10000000)
     n1 = cups[1]
     return n1 * cups[n1]
 
