@@ -1,28 +1,15 @@
 from sys import stdout as std
+from itertools import count
 DIVIDER = 20201227
 
 
-def get_cyc(i, sub):
-    x, count = 1, 0
-    while x != i:
-        x *= sub
-        x %= DIVIDER
-        count += 1
-    return count
-
-
-def get_en_key(sub, cyc):
-    x = 1
-    for _ in range(cyc):
-        x *= sub
-        x %= DIVIDER
-    return x
-
-
 def first_part(door, key, sub):
-    d_loop_s = get_cyc(key, sub)
-    en_key = get_en_key(door, d_loop_s)
-    return en_key
+    prod = 1
+    for i in count():
+        if prod == door:
+            break
+        prod = (prod*sub) % DIVIDER
+    return pow(key, i, DIVIDER)
 
 
 with open('2020/inputs/day25.txt', 'r') as inp:
