@@ -155,7 +155,7 @@ def second_part(tmap):
     return tmap.turb - (15 * mnstrs)
 
 
-with open('2020/inputs/day20.txt', 'r') as inp:
+with open('2020/inputs/test.txt', 'r') as inp:
     tmap = Map(inp.read().split('\n\n'))
     stdout.write(f'Day 20\nFirst part: {first_part(tmap)}\nSecond part: ')
     stdout.write(f'{second_part(tmap)}\n')
