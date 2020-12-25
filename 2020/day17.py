@@ -4,38 +4,40 @@ from collections import defaultdict
 
 
 def conway_cubes(lns, dims=3, cycs=6):
-    dirs, cubes = set(product((-1, 0, 1), repeat=dims)), {}
-    dirs.remove(((0,)*dims))
+    cubes = set()
     for y, row in enumerate(lns):
         for x, cube in enumerate(row):
-            cubes[(x, y) + ((0,)*(dims-2))] = cube
+            if cube == '#':
+                cubes.add((x, y) + (0,)*(dims-2))
+
+    def neighbors(crd):
+        if dims == 4:
+            for dx, dy, dz, dw in product([-1, 0, 1], repeat=dims):
+                if (dx, dy, dz, dw) != (0, 0, 0, 0):
+                    yield crd[0] + dx, crd[1] + dy, crd[2] + dz, crd[3] + dw
+        else:
+            for dx, dy, dz in product([-1, 0, 1], repeat=dims):
+                if (dx, dy, dz) != (0, 0, 0):
+                    yield crd[0] + dx, crd[1] + dy, crd[2] + dz
 
     def cycle_cubes(c_cubes):
         active_cubes = defaultdict(int)
+        for coord in c_cubes:
+            for nei in neighbors(coord):
+                active_cubes[nei] += 1
 
-        for coord, val in c_cubes.items():
-            if val == '#':
-                for nei in [tuple(map(sum, zip(coord, b))) for b in dirs]:
-                    active_cubes[nei] += 1
-
-        n_map, count = {}, 0
-
+        n_map = set()
         for coord, neis in active_cubes.items():
-            current_state = '.' if coord not in c_cubes else c_cubes[coord]
-            if current_state == '#' and not (2 <= neis <= 3):
-                n_map[coord] = '.'
-            elif current_state == '.' and neis == 3:
-                n_map[coord] = '#'
-            else:
-                n_map[coord] = current_state
-
-            count += n_map[coord] == '#'
-
-        return n_map, count
+            if coord in c_cubes:
+                if 2 <= neis <= 3:
+                    n_map.add(coord)
+            elif neis == 3:
+                n_map.add(coord)
+        return n_map
 
     for i in range(cycs):
-        cubes, active = cycle_cubes(cubes)
-    return active
+        cubes = cycle_cubes(cubes)
+    return len(cubes)
 
 
 with open('2020/inputs/day17.txt', 'r') as inp:
