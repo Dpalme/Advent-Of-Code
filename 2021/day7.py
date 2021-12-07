@@ -1,31 +1,22 @@
 from sys import stdout
 
 
-def sumdig(n):
-    return (n * (n + 1)) / 2
-
-
 def first_part(pos):
-    return min(
-        sum(
-            map(
-                lambda a: abs(a-i), pos
-            )
+    i = sorted(pos)[len(pos)//2]
+    return sum(
+        map(
+            lambda a: abs(a-i), pos
         )
-        for i in range(min(pos), max(pos) + 1)
     )
 
 
-def second_part(ns):
-    return int(min(
-        sum(
-            map(
-                lambda a: sumdig(abs(a-i)),
-                pos
-            )
+def second_part(pos):
+    i = sum(pos) // len(pos)
+    return sum(
+        map(
+            lambda a: (abs(a-i) * (abs(a-i) + 1)) // 2, pos
         )
-        for i in range(min(pos), max(pos) + 1)
-    ))
+    )
 
 
 with open('2021/inputs/day7.txt', 'r') as inp:
