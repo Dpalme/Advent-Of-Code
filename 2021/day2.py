@@ -3,7 +3,8 @@ from sys import stdout
 
 def first_part(lns):
     x, y = 0, 0
-    for cmd, v in (ln.split() for ln in lns):
+    for ln in lns:
+        cmd, v = ln.split()
         if (cmd == 'down'):
             y += int(v)
         elif cmd == 'up':
@@ -15,7 +16,8 @@ def first_part(lns):
 
 def second_part(lns):
     x, y, aim = 0, 0, 0
-    for cmd, v in (ln.split() for ln in lns):
+    for ln in lns:
+        cmd, v = ln.split(' ')
         if (cmd == 'down'):
             aim += int(v)
         elif cmd == 'up':
@@ -27,6 +29,6 @@ def second_part(lns):
 
 
 with open('2021/inputs/day2.txt', 'r') as inp:
-    lns = inp.read().rsplit()
-    stdout.write(f'Day 1\nFirst part: {first_part(lns)}\n')
+    lns = inp.readlines()
+    stdout.write(f'Day 2\nFirst part: {first_part(lns)}\n')
     stdout.write(f'Second part: {second_part(lns)}\n')

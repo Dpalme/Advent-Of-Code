@@ -3,7 +3,7 @@ from sys import stdout
 
 def first_part(numbers):
     rn = tuple(reversed(numbers))
-    return sum(rn[i+1] < n for i, n in enumerate(reversed(numbers[1:])))
+    return sum(rn[i+1] < n for i, n in enumerate(rn[:-1]))
 
 
 def second_part(ns):

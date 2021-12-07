@@ -66,5 +66,5 @@ def second_part(turns, boards):
 with open('2021/inputs/day4.txt', 'r') as inp:
     lns = inp.read().rsplit('\n\n')
     turns = tuple(map(int, lns[0].split(',')))
-    stdout.write(f'Day 1\nFirst part: {first_part(turns, lns[1:])}\n')
+    stdout.write(f'Day 4\nFirst part: {first_part(turns, lns[1:])}\n')
     stdout.write(f'Second part: {second_part(turns, lns[1:])}\n')

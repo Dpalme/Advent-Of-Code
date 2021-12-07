@@ -50,11 +50,10 @@ def second_part(lns):
                 nMap.touch(
                     x[0] + (i * (1 - (2 * (x[0] > x[1])))),
                     y[0] + (i * (1 - (2 * (y[0] > y[1])))))
-    print(nMap)
     return len(tuple(filter(lambda x: x > 1, nMap.values())))
 
 
 with open('2021/inputs/day5.txt', 'r') as inp:
     lns = inp.read().rsplit('\n')
-    stdout.write(f'Day 1\nFirst part: {first_part(lns)}\n')
+    stdout.write(f'Day 5\nFirst part: {first_part(lns)}\n')
     stdout.write(f'Second part: {second_part(lns)}\n')
