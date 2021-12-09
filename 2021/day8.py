@@ -1,27 +1,6 @@
 from functools import reduce
 from sys import stdout
 
-'''
-1 - cf
-7 - acf
-4 - bcdf
-8 - abcdefg
-0 - abcefg
-6 - abdefg
-9 - abcdfg
-2 - acdeg
-3 - acdfg
-5 - abdfg
-
-
-0 - abcefg
-6 - abdfeg
-9 - abcdfg
-2 - ce
-3 - cf
-5 - f
-'''
-
 
 def first_part(lns):
     return sum(sum(map(lambda a: len(a) in (4, 7, 3, 2), ln.split(' | ')[1].split())) for ln in lns)
