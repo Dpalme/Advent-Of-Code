@@ -9,8 +9,8 @@ import day4
 import day5
 import day6
 import day7
-# import day8
-# import day9
+import day8
+import day9
 # import day10
 # import day11
 # import day12
