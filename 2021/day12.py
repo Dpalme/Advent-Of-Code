@@ -1,47 +1,24 @@
 from sys import stdout
-from collections import Counter
+from collections import defaultdict
 
 
-def first_part(caves):
-    routes = []
-    queue = {('start',)}
-    while len(queue):
-        path = queue.pop()
-        if path[-1] == 'end':
-            routes.append(path)
-            continue
-        for neighbor in caves[path[-1]]:
-            if neighbor[0].islower() and neighbor in path:
-                continue
-            queue.add((*path, neighbor))
-    return len(routes)
-
-
-def second_part(caves):
-    routes = set()
-    queue = {('start',)}
-    while len(queue):
-        path = queue.pop()
-        if path[-1] == 'end':
-            routes.add(path)
-            continue
-        for neighbor in caves[path[-1]]:
-            if neighbor == 'start' or (neighbor[0].islower() and neighbor in path and Counter(filter(lambda a: a.islower(), path)).most_common(1)[0][1] > 1):
-                continue
-            queue.add((*path, neighbor))
-    return len(routes)
+def count_paths(curr='start', path={'start'}, dd=False):
+    if curr == 'end':
+        return 1
+    return sum(
+        count_paths(n, path, dd) if n.isupper() else (
+            count_paths(n, path | {n}, dd) if n not in path else (
+                count_paths(n, path, False) if dd and n != 'start' else
+                    0
+            )
+        ) for n in caves[curr]
+    )
 
 
 with open('2021/inputs/day12.txt', 'r') as inp:
-    lns = inp.read().rsplit('\n')
-    caves = {}
-    for c in lns:
-        f, t = c.split('-')
-        if f not in caves:
-            caves[f] = set()
-        if t not in caves:
-            caves[t] = set()
+    caves = defaultdict(set)
+    for f, t in map(lambda a: a.split('-'), inp.read().rsplit('\n')):
         caves[f].add(t)
         caves[t].add(f)
-    stdout.write(f'Day 12\nFirst part: {first_part(caves)}\n')
-    stdout.write(f'Second part: {second_part(caves)}\n')
+    stdout.write(f'Day 12\nFirst part: {count_paths()}\n')
+    stdout.write(f'Second part: {count_paths(dd=True)}\n')
