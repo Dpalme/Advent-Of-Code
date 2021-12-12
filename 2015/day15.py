@@ -49,6 +49,6 @@ with open('2015/inputs/day15.txt', 'r') as inp:
         ingredients.append((int(i[2][:-1]), int(i[4][:-1]),
                             int(i[6][:-1]), int(i[8][:-1]), int(i[-1])))
     std.write('Day 25\nFirst part: ')
-    # std.write(f'{first_part(ingredients)}\n')
+    std.write(f'{first_part(ingredients)}\n')
     std.write('Second part: ')
     std.write(f'{second_part(ingredients)}\n')
