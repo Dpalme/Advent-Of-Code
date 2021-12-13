@@ -8,7 +8,7 @@ def fold(paper: set, f_inst: list):
         for c in folded:
             paper.add((c[0], v - (c[axis] - v)) if axis else (v - (c[axis] - v), c[1]))
     for y in range(6):
-        print(''.join('■' if (x,y) in paper else ' ' for x in range(39)))
+        stdout.write(''.join('■' if (x,y) in paper else ' ' for x in range(39)) + '\n')
     return len(paper)
 
 
