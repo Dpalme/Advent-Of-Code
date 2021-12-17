@@ -32,7 +32,7 @@ def first_part(graph, target):
 
 
 def second_part(graph, target):
-    mx, my, ngraph = target[0] + 1, target[1] + 1, ()
+    mx, my, ngraph = target[0] + 1, target[1] + 1, {}
     for dy, dx in product(range(0, 5), repeat=2):
         for y, x in product(range(mx), repeat=2):
             nsum = (graph[x, y] + dx + dy)
