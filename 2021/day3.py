@@ -1,5 +1,4 @@
 from sys import stdout
-from functools import reduce
 from collections import Counter
 
 def first_part(lns): 

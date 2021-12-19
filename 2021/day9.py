@@ -1,6 +1,5 @@
 from functools import reduce
 from sys import stdout
-from itertools import product
 
 DIRS = ((0, 1), (0, -1), (1, 0), (-1, 0))
 
