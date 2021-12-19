@@ -109,14 +109,10 @@ def add_pairs(a, b):
     root = Pair(None, a, b)
     a.parent = b.parent = root
     while True:
-        start = str(root)
         while True:
-            se = str(root)
-            root.exp()
-            if se == str(root):
+            if not root.exp():
                 break
-        root.rdc()
-        if start == str(root):
+        if not root.rdc():
             break
     return root
 
@@ -144,8 +140,6 @@ def pair_builder(lstr, parent=None):
 
 
 with open('2021/inputs/day18.txt', 'r') as inp:
-    inps = inp.read().rsplit('\n')
-    p1_pairs = list(map(pair_builder, map(eval, inps)))
-    p2_pairs = list(map(pair_builder, map(eval, inps)))
-    stdout.write(f'Day 18\nFirst part: {first_part(p1_pairs)}\n')
-    stdout.write(f'Second part: {second_part(p2_pairs)}\n')
+    pairs = list(map(pair_builder, map(eval, inp.read().rsplit('\n'))))
+    stdout.write(f'Day 18\nFirst part: {first_part(deepcopy(pairs))}\n')
+    stdout.write(f'Second part: {second_part(pairs)}\n')
