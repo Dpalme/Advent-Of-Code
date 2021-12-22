@@ -15,17 +15,11 @@ def neigh(crd):
 
 
 def enhance(enh, img, ext):
-    new_img = defaultdict(lambda:ext)
-    interior = {n for crd in img for n in neigh(crd)}
-
     def enh_algorithm(crds):
-        n = 0
-        for v in crds:
-            n = n + img[v]
-            n = n << 1
-        return enh[n >> 1]
+        return enh[int(''.join('1' if img[v] else '0' for v in crds),2)]
 
-    for crd in interior:
+    new_img = defaultdict(lambda:ext)
+    for crd in {n for crd in img for n in neigh(crd)}:
         new_img[crd] = enh_algorithm(neigh(crd))
     return new_img
 
@@ -39,7 +33,7 @@ def iterate(enh, img, iterations):
 with open('2021/inputs/day20.txt', 'r') as inp:
     lns = inp.read().rsplit('\n\n')
     enh = tuple('#' == c for c in lns[0])
-    img = defaultdict(lambda:0)
+    img = defaultdict(int)
     for y, row in enumerate(lns[1].split('\n')):
         for x, v in enumerate(row):
             if v == '#':
