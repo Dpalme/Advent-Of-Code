@@ -12,12 +12,15 @@ def first_part(inp_str):
         pss = {p[0]: p[1]
                for p in [pr.split(':')
                          for pr in ln.replace('\n', ' ').split()]}
-        if ("byr" in pss and "iyr" in pss and
-            "eyr" in pss and "hgt" in pss and
-            "hcl" in pss and "ecl" in pss and
-                "pid" in pss):
+        if (is_valid_passport_p1(pss)):
             psss.append(pss)
     return psss
+
+def is_valid_passport_p1(pss):
+    return ("byr" in pss and "iyr" in pss and
+            "eyr" in pss and "hgt" in pss and
+            "hcl" in pss and "ecl" in pss and
+                "pid" in pss)
 
 
 def second_part(psss):
