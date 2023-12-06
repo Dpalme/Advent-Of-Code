@@ -3,6 +3,7 @@ from sys import stdout
 import re
 import collections
 
+
 def get_number_of_matches(have_numbers: set[int], winning_numbers: set[int]):
     return len(have_numbers.intersection(winning_numbers))
 
@@ -15,16 +16,18 @@ def process_card(card):
     have_numbers = set(map(int, re.findall(r'\d+', have)))
     return winning_numbers, have_numbers, card_number
 
+
 def first_part(lns):
     def get_card_value(card):
         winning_numbers, have_numbers, _ = process_card(card)
-        return 2 ** (get_number_of_matches(have_numbers=have_numbers,
-                                        winning_numbers=winning_numbers)) >> 1
+        matches = get_number_of_matches(have_numbers=have_numbers,
+                                        winning_numbers=winning_numbers)
+        return 2 ** (matches) >> 1
     return sum(map(get_card_value, lns))
 
 
 def second_part(lns):
-    cards = collections.defaultdict(lambda:0)
+    cards = collections.defaultdict(lambda: 0)
     largest_actual_card = 1
     for card in lns:
         winning_numbers, have_numbers, card_number = process_card(card)
